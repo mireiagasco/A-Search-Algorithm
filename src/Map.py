@@ -103,27 +103,27 @@ class Map_Obj():
             start_pos = [27, 18]
             goal_pos = [40, 32]
             end_goal_pos = goal_pos
-            path_to_map = '../files/Samfundet_map_1.csv'
+            path_to_map = 'Samfundet_map_1.csv'
         elif task == 2:
             start_pos = [40, 32]
             goal_pos = [8, 5]
             end_goal_pos = goal_pos
-            path_to_map = '../files/Samfundet_map_1.csv'
+            path_to_map = 'Samfundet_map_1.csv'
         elif task == 3:
             start_pos = [28, 32]
             goal_pos = [6, 32]
             end_goal_pos = goal_pos
-            path_to_map = '../files/Samfundet_map_2.csv'
+            path_to_map = 'Samfundet_map_2.csv'
         elif task == 4:
             start_pos = [28, 32]
             goal_pos = [6, 32]
             end_goal_pos = goal_pos
-            path_to_map = '../files/Samfundet_map_Edgar_full.csv'
+            path_to_map = 'Samfundet_map_Edgar_full.csv'
         elif task == 5:
             start_pos = [14, 18]
             goal_pos = [6, 36]
             end_goal_pos = [6, 7]
-            path_to_map = '../files/Samfundet_map_2.csv'
+            path_to_map = 'Samfundet_map_2.csv'
 
         return start_pos, goal_pos, end_goal_pos, path_to_map
 
@@ -352,3 +352,22 @@ class Map_Obj():
                                y * scale + j] = colors[themap[y][x]]
         # Show image
         image.show()
+
+    def get_neighbours(self, current: list) -> list:
+        neighbours = list()
+        x = current[0]
+        y = current[1]
+
+        if self.int_map[x+1, y] != -1:
+            neighbours.append([x+1,y])
+
+        if self.int_map[x-1, y] != -1:
+            neighbours.append([x-1,y])
+
+        if self.int_map[x, y+1] != -1:
+            neighbours.append([x,y+1])
+
+        if self.int_map[x, y-1] != -1:
+            neighbours.append([x,y-1])
+
+        return neighbours
