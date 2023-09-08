@@ -23,7 +23,7 @@ def a_star_search(themap: Map_Obj):
     frontier = PriorityQueue()
     start = map.get_start_pos()
     goal = map.get_goal_pos()
-    frontier.put(start, 0)
+    frontier.put((0, start))
 
     came_from = dict()
     cost_so_far = dict()
@@ -32,20 +32,22 @@ def a_star_search(themap: Map_Obj):
     cost_so_far[tuple(start)] = 0
 
     while not frontier.empty():
-        current = frontier.get()
+        current = frontier.get()[1]
         if current == goal:
+            # Goal reached
             break
 
         neighbours_list = map.get_neighbours(current)
         for next in neighbours_list:
             new_cost = cost_so_far[tuple(current)] + map.get_cell_value(next)
             if tuple(next) not in cost_so_far or new_cost < cost_so_far[tuple(next)]:
+                came_from[tuple(next)] = current
                 cost_so_far[tuple(next)] = new_cost
                 priority = new_cost + heuristic_manhattan(goal, next)
-                frontier.put(next, priority)
-                came_from[tuple(next)] = current
+                frontier.put((priority, next))
 
-    return came_from, cost_so_far
+
+    return came_from
 
 def heuristic_manhattan(goal, pos) -> int:
     """Heuristic Function
@@ -60,16 +62,27 @@ def heuristic_manhattan(goal, pos) -> int:
     """
     return sum(abs(val1-val2) for val1, val2 in zip(goal,pos))
 
-def reconstruct_path(came_from: dict[tuple, int],start: list, goal: list):
-    current = goal
-    start = start
-    goal = goal
-    if tuple(goal) not in came_from: # no path was found
+def reconstruct_path(map: Map_Obj, came_from):
+    """ Method to reconstruct the shortest path.
+    Modifies the map to show the path in yellow
+    :param map: the map
+    :param came_from: output of the a_star_search()
+    :return: a list with the path
+    """
+
+    start = map.get_start_pos()
+    goal = map.get_end_goal_pos()
+    current = came_from[tuple(goal)]
+    path = []
+    if tuple(goal) not in came_from:
         return []
     while current != start:
-        map.str_map[current] = 1
+        path.append(current)
+        map.str_map[tuple(current)] = 1
         current = came_from[tuple(current)]
+    return path.reverse()
 
-came_from, cost_so_far = a_star_search(map)
-reconstruct_path(came_from, map.get_start_pos(), map.get_end_goal_pos())
+
+came_from = a_star_search(map)
+reconstruct_path(map, came_from)
 map.show_map()
