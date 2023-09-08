@@ -8,15 +8,10 @@ __email__ = "mireiagasco271@gmail.com"
 from Map import Map_Obj
 from queue import PriorityQueue
 
-map = Map_Obj(1)
-map.read_map("Samfundet_map_1.csv")
-map.fill_critical_positions(1)
-map.show_map()
-
-def a_star_search(themap: Map_Obj):
+def a_star_search(map: Map_Obj):
     """A* Search Algorithm
 
-    :param themap: map object
+    :param map: map object
     :return: a new map object with the shortest path from start to goal
     """
 
@@ -83,6 +78,3 @@ def reconstruct_path(map: Map_Obj, came_from):
     return path.reverse()
 
 
-came_from = a_star_search(map)
-reconstruct_path(map, came_from)
-map.show_map()
