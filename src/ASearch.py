@@ -1,7 +1,7 @@
-"""
-A* Search Implementation
-TDT4136 - Introduction to Artificial Intelligence (NTNU)
-"""
+
+"             A* Search Implementation                   "
+"TDT4136 - Introduction to Artificial Intelligence (NTNU)"
+
 __author__ = "Mireia Gasco Agorreta"
 __email__ = "mireiagasco271@gmail.com"
 
