@@ -17,26 +17,36 @@ map4 = Map_Obj(4)
 map4.read_map("Samfundet_map_Edgar_full.csv")
 map4.fill_critical_positions(4)
 
+map5 = Map_Obj(5)
+map5.read_map("Samfundet_map_2.csv")
+map5.fill_critical_positions(5)
+
 # -> Task 1
 map1.show_map()
-came_from = a_star_search(map1)
-reconstruct_path(map1, came_from)
+came_from, goal = a_star_search(map1)
+reconstruct_path(map1, came_from, goal)
 map1.show_map()
 
 # -> Task 2
 map2.show_map()
-came_from = a_star_search(map2)
-reconstruct_path(map2, came_from)
+came_from, goal = a_star_search(map2)
+reconstruct_path(map2, came_from, goal)
 map2.show_map()
 
 # -> Task 3
 map3.show_map()
-came_from = a_star_search(map3)
-reconstruct_path(map3, came_from)
+came_from, goal = a_star_search(map3)
+reconstruct_path(map3, came_from, goal)
 map3.show_map()
 
 # -> Task 4
 map4.show_map()
-came_from = a_star_search(map4)
-reconstruct_path(map4, came_from)
+came_from, goal = a_star_search(map4)
+reconstruct_path(map4, came_from, goal)
 map4.show_map()
+
+# -> Task 5
+map5.show_map()
+came_from, goal = a_star_search(map5, True)
+reconstruct_path(map5, came_from, goal)
+map5.show_map()
